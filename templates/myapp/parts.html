@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load part_tags %}
+
+{% block title %}{{ vehicle.name }} Parts - Scrap Auto Parts{% endblock %}
+
+{% block meta_description %}Browse {{ parts.count }} available parts for {{ vehicle.name }}. Quality used spare parts in stock.{% endblock %}
+
+{% block content %}
+<!-- Page Header - Mobile Optimized -->
+<div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl md:rounded-2xl shadow-xl p-4 md:p-8 mb-4 md:mb-8 text-white">
+    <nav class="text-xs md:text-sm mb-2 md:mb-4 opacity-90">
+        <a href="{% url 'myapp:home' %}" class="hover:underline">Home</a> 
+        <span class="mx-1 md:mx-2">/</span>
+        <a href="{% url 'myapp:vehicle_list' %}" class="hover:underline">Vehicles</a>
+        <span class="mx-1 md:mx-2">/</span>
+        <span class="truncate inline-block max-w-[120px] md:max-w-none align-bottom">{{ vehicle.name }}</span>
+    </nav>
+    
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 md:gap-4">
+        <div class="flex-1">
+            <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-3 leading-tight">{{ vehicle.name }}</h1>
+            <p class="text-sm md:text-xl opacity-95">
+                {{ vehicle.manufacturer }} | 
+                {% if vehicle.year_to %}
+                {{ vehicle.year_from }} - {{ vehicle.year_to }}
+                {% else %}
+                {{ vehicle.year_from }} - Present
+                {% endif %}
+            </p>
+        </div>
+        
+        <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 md:px-6 py-3 md:py-4 self-end md:self-auto">
+            <div class="text-2xl md:text-3xl font-bold">{{ parts.count }}</div>
+            <div class="text-xs md:text-sm opacity-90">Parts</div>
+        </div>
+    </div>
+</div>
+
+<!-- Category Filter - Mobile Optimized -->
+{% if categories %}
+<div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-3 md:p-6 mb-4 md:mb-8">
+    <form method="get" class="flex flex-col md:flex-row gap-2 md:gap-4 items-stretch md:items-center">
+        <div class="flex items-center gap-2 md:gap-3 flex-shrink-0">
+            <span class="text-xl md:text-2xl">🔧</span>
+            <label class="font-semibold text-gray-700 text-sm md:text-base">Filter:</label>
+        </div>
+        
+        <select name="category" onchange="this.form.submit()"
+                class="flex-1 px-3 md:px-4 py-2 md:py-3 border-2 border-gray-300 rounded-lg md:rounded-xl focus:outline-none focus:border-purple-500 bg-gray-50 hover:bg-white transition-colors text-sm md:text-base">
+            <option value="">All Categories ({{ parts.count }})</option>
+            {% for category in categories %}
+            <option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>
+                {{ category }}
+            </option>
+            {% endfor %}
+        </select>
+        
+        {% if selected_category %}
+        <a href="{% url 'myapp:parts_list' vehicle.slug %}" 
+           class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 md:py-3 px-4 md:px-6 rounded-lg md:rounded-xl transition-colors whitespace-nowrap text-center text-sm md:text-base">
+            Clear Filter
+        </a>
+        {% endif %}
+    </form>
+</div>
+{% endif %}
+
+<!-- Parts Grid - Compact Design with Better Mobile -->
+{% if parts %}
+<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 mb-8">
+    {% for part in parts %}
+    <div class="bg-white rounded-xl md:rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2">
+        <!-- Part Image -->
+        <div class="relative overflow-hidden h-36 md:h-48 bg-gradient-to-br from-gray-50 to-gray-100">
+            {% if part|has_image %}
+                <img src="{{ part.image.url }}" alt="{{ part.name }}" 
+                     class="w-full h-full object-cover">
+            {% else %}
+                <img src="{% part_default_image part %}" alt="{{ part.name }}" 
+                     class="w-full h-full object-contain p-2 md:p-4">
+            {% endif %}
+            
+            <!-- Stock Badge - Top Right -->
+            <div class="absolute top-2 md:top-3 right-2 md:right-3">
+                {% if part.stock.quantity > 0 %}
+                    {% if part.stock.is_low_stock %}
+                    <span class="bg-yellow-500 text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold shadow-lg">
+                        ⚠️ Low
+                    </span>
+                    {% else %}
+                    <span class="bg-green-500 text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold shadow-lg">
+                        ✓
+                    </span>
+                    {% endif %}
+                {% else %}
+                <span class="bg-red-500 text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold shadow-lg">
+                    Out
+                </span>
+                {% endif %}
+            </div>
+            
+            <!-- Request Photo Badge - Bottom Left -->
+            {% if not part|has_image %}
+            <div class="absolute bottom-2 md:bottom-3 left-2 md:left-3 bg-gray-900/90 backdrop-blur-sm text-white px-2 md:px-3 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-medium flex items-center gap-1 md:gap-1.5 shadow-lg">
+                <svg class="w-3 md:w-3.5 h-3 md:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span class="hidden sm:inline">Request photo</span>
+                <span class="sm:hidden">📸</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Part Info - Mobile Optimized -->
+        <div class="p-2 md:p-3">
+            <h3 class="text-xs md:text-base font-bold text-gray-800 mb-1 line-clamp-2 h-8 md:h-11 leading-tight">
+                {{ part.name }}
+            </h3>
+            
+            <!-- Category & Condition -->
+            <div class="flex items-center gap-1 md:gap-2 mb-1.5 md:mb-2 text-[10px] md:text-xs flex-wrap">
+                <span class="inline-block bg-purple-100 text-purple-700 px-1.5 md:px-2 py-0.5 rounded-full font-semibold truncate max-w-[80px] md:max-w-none">
+                    {{ part.category }}
+                </span>
+                <span class="text-gray-600 text-[9px] md:text-xs truncate">{{ part.condition }}</span>
+            </div>
+            
+            <!-- Compact Details - Mobile Friendly -->
+            <div class="space-y-0.5 mb-1.5 md:mb-2 text-[10px] md:text-xs text-gray-600">
+                {% if part.stock.quantity > 0 %}
+                <div class="flex items-center gap-1">
+                    <span>📦</span>
+                    <span>Qty: <strong class="text-purple-600">{{ part.stock.quantity }}</strong></span>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- View Button - Mobile Optimized -->
+            <a href="{% url 'myapp:part_detail' vehicle.slug part.slug %}" 
+               class="block w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-1.5 md:py-2 px-2 md:px-3 rounded-lg md:rounded-xl text-center transition-all transform active:scale-95 md:hover:scale-105 shadow-md text-[11px] md:text-sm">
+                View →
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Results Info -->
+<div class="text-center text-gray-600">
+    Showing <strong>{{ parts.count }}</strong> 
+    {% if selected_category %}
+    part(s) in "{{ selected_category }}"
+    {% else %}
+    part(s) for {{ vehicle.name }}
+    {% endif %}
+</div>
+
+{% else %}
+<!-- Empty State -->
+<div class="bg-white rounded-2xl shadow-xl p-12 text-center">
+    <div class="text-8xl mb-6">📦</div>
+    <h3 class="text-3xl font-bold text-gray-800 mb-4">No Parts Available</h3>
+    <p class="text-xl text-gray-600 mb-8">
+        {% if selected_category %}
+        No parts found in "{{ selected_category }}" category for this vehicle.
+        {% else %}
+        Currently no parts in stock for {{ vehicle.name }}. We regularly update our inventory as new vehicles arrive.
+        {% endif %}
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        {% if selected_category %}
+        <a href="{% url 'myapp:parts_list' vehicle.slug %}" 
+           class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-xl transition-colors">
+            View All Parts
+        </a>
+        {% endif %}
+        <a href="{% url 'myapp:vehicle_list' %}" 
+           class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-xl transition-colors">
+            Browse Other Vehicles
+        </a>
+        <a href="https://wa.me/919895687959?text=Hi!%20I'm%20looking%20for%20parts%20for%20{{ vehicle.name|urlencode }}" 
+           target="_blank"
+           class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl transition-colors">
+            Contact Us
+        </a>
+    </div>
+</div>
+{% endif %}
+
+<!-- WhatsApp CTA -->
+<div class="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl shadow-xl p-8 text-center text-white mt-12">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-left">
+            <h3 class="text-2xl font-bold mb-2">Need Help Finding a Part?</h3>
+            <p class="text-lg opacity-95">Our team is ready to assist you via WhatsApp</p>
+        </div>
+        <a href="https://wa.me/919895687959?text=Hi!%20I'm%20looking%20for%20parts%20for%20{{ vehicle.name|urlencode }}" 
+           target="_blank"
+           class="flex items-center gap-3 bg-white text-green-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg whitespace-nowrap">
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            WhatsApp Us
+        </a>
+    </div>
+</div>
+{% endblock %}

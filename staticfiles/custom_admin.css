@@ -1,0 +1,44 @@
+.stock-btn {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 26px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-right: 6px;
+    text-decoration: none;
+}
+
+.stock-btn.plus {
+    background: #16a34a;
+    color: white;
+}
+
+.stock-btn.minus {
+    background: #dc2626;
+    color: white;
+}
+
+.stock-btn:hover {
+    opacity: 0.85;
+}
+
+.stock-ok {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+.stock-low {
+    color: #f59e0b;
+    font-weight: bold;
+}
+
+.stock-out {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.stock-none {
+    color: #6b7280;
+}

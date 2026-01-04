@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load part_tags %}
+
+{% block title %}Search Results{% if query %} for "{{ query }}"{% endif %} - Scrap Auto Parts{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 mb-8 text-white">
+    <nav class="text-sm mb-4 opacity-90">
+        <a href="{% url 'myapp:home' %}" class="hover:underline">Home</a>
+        <span class="mx-2">/</span>
+        <span>Search</span>
+    </nav>
+    
+    <h1 class="text-4xl md:text-5xl font-bold mb-3">
+        {% if query %}
+        Search Results for "<span class="text-yellow-300">{{ query }}</span>"
+        {% else %}
+        Search Parts
+        {% endif %}
+    </h1>
+    <p class="text-xl opacity-95">Find the perfect part for your vehicle</p>
+</div>
+
+<!-- Search Box -->
+<div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+    <form method="get" action="{% url 'myapp:search' %}" class="flex gap-3">
+        <div class="flex-1 relative">
+            <input type="text" 
+                   name="q" 
+                   value="{{ query }}" 
+                   placeholder="Search for parts, vehicles, or categories..."
+                   class="w-full pl-12 pr-32 py-3.5 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all text-lg"
+                   autofocus>
+            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </div>
+        </div>
+        <button type="submit" 
+                class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg">
+            Search
+        </button>
+    </form>
+    
+    <!-- Search Tips -->
+    <div class="mt-4 flex flex-wrap gap-2">
+        <span class="text-sm text-gray-600 font-semibold">Try:</span>
+        <a href="?q=engine" class="text-sm bg-purple-100 text-purple-700 hover:bg-purple-200 px-3 py-1 rounded-full transition-colors">"engine"</a>
+        <a href="?q=bumper" class="text-sm bg-purple-100 text-purple-700 hover:bg-purple-200 px-3 py-1 rounded-full transition-colors">"bumper"</a>
+        <a href="?q=honda" class="text-sm bg-purple-100 text-purple-700 hover:bg-purple-200 px-3 py-1 rounded-full transition-colors">"honda"</a>
+        <a href="?q=royal enfield" class="text-sm bg-purple-100 text-purple-700 hover:bg-purple-200 px-3 py-1 rounded-full transition-colors">"royal enfield"</a>
+    </div>
+</div>
+
+{% if query %}
+    {% if results %}
+    <!-- Results Count -->
+    <div class="mb-6">
+        <div class="bg-green-50 border-2 border-green-200 rounded-xl px-6 py-4 flex items-center gap-3">
+            <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-gray-700">
+                Found <strong class="text-green-700 text-xl">{{ results.count }}</strong> matching part(s)
+            </span>
+        </div>
+    </div>
+    
+    <!-- Results Grid - Compact Design -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+        {% for part in results %}
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:-translate-y-2">
+            <!-- Part Image -->
+            <div class="relative overflow-hidden h-48 bg-gray-100">
+                {% if part|has_image %}
+                    <img src="{{ part.image.url }}" alt="{{ part.name }}" 
+                         class="w-full h-full object-cover">
+                {% else %}
+                    <img src="{% part_default_image part %}" alt="{{ part.name }}" 
+                         class="w-full h-full object-contain p-4">
+                {% endif %}
+                
+                <!-- Stock Badge - Top Right Only -->
+                <div class="absolute top-3 right-3">
+                    {% if part.stock.quantity > 0 %}
+                        {% if part.stock.is_low_stock %}
+                        <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                            ⚠️ Low Stock
+                        </span>
+                        {% else %}
+                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                            In Stock
+                        </span>
+                        {% endif %}
+                    {% else %}
+                    <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                        Out of Stock
+                    </span>
+                    {% endif %}
+                </div>
+                
+                <!-- Request Photo Badge - Bottom Left -->
+                {% if not part|has_image %}
+                <div class="absolute bottom-3 left-3 bg-gray-900/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 shadow-lg">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    Request actual photo
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Part Info - More Compact -->
+            <div class="p-3">
+                <h3 class="text-base font-bold text-gray-800 mb-1 line-clamp-2 h-11 leading-tight">
+                    {{ part.name }}
+                </h3>
+                
+                <!-- Vehicle Info -->
+                <div class="mb-1 text-xs text-gray-600">
+                    {{ part.vehicle_model.manufacturer }} {{ part.vehicle_model.name }}
+                </div>
+                
+                <!-- Category & Condition in one line -->
+                <div class="flex items-center gap-2 mb-2 text-xs flex-wrap">
+                    <span class="inline-block bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-semibold">
+                        {{ part.category }}
+                    </span>
+                    <span class="text-gray-600 text-xs">{{ part.condition }}</span>
+                </div>
+                
+                <!-- Compact Quantity -->
+                {% if part.stock.quantity > 0 %}
+                <div class="flex items-center gap-1 mb-2 text-xs text-gray-600">
+                    <span>📦</span>
+                    <span>Qty: <strong>{{ part.stock.quantity }}</strong></span>
+                </div>
+                {% endif %}
+                
+                <!-- View Button -->
+                <a href="{% url 'myapp:part_detail' part.vehicle_model.slug part.slug %}" 
+                   class="block w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2 px-3 rounded-xl text-center transition-all transform hover:scale-105 shadow-md text-sm">
+                    View Details →
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% else %}
+    <!-- No Results -->
+    <div class="bg-white rounded-2xl shadow-xl p-12 text-center">
+        <div class="text-8xl mb-6">🔍</div>
+        <h3 class="text-3xl font-bold text-gray-800 mb-4">No Results Found</h3>
+        <p class="text-xl text-gray-600 mb-8">
+            We couldn't find any parts matching "<strong>{{ query }}</strong>"
+        </p>
+        
+        <!-- Suggestions -->
+        <div class="bg-purple-50 rounded-xl p-6 mb-8 text-left max-w-2xl mx-auto">
+            <h4 class="font-bold text-lg mb-3 text-gray-800">💡 Search Tips:</h4>
+            <ul class="space-y-2 text-gray-700">
+                <li class="flex items-start gap-2">
+                    <span class="text-purple-600 mt-1">•</span>
+                    <span>Try different keywords or spellings</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-purple-600 mt-1">•</span>
+                    <span>Use broader search terms (e.g., "engine" instead of "2.0L turbo engine")</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-purple-600 mt-1">•</span>
+                    <span>Check your spelling</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-purple-600 mt-1">•</span>
+                    <span>Browse by vehicle to see all available parts</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'myapp:vehicle_list' %}" 
+               class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-xl transition-colors">
+                Browse All Vehicles
+            </a>
+            <a href="https://wa.me/919895687959?text=Hi!%20I'm%20looking%20for%20{{ query|urlencode }}" 
+               target="_blank"
+               class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl transition-colors">
+                Contact Us on WhatsApp
+            </a>
+        </div>
+    </div>
+    {% endif %}
+{% else %}
+<!-- Empty State - No Query -->
+<div class="bg-white rounded-2xl shadow-xl p-12 text-center">
+    <div class="text-8xl mb-6">🔎</div>
+    <h3 class="text-3xl font-bold text-gray-800 mb-4">Start Your Search</h3>
+    <p class="text-xl text-gray-600 mb-8">
+        Enter a search term above to find parts by name, category, vehicle model, or manufacturer
+    </p>
+    
+    <!-- Popular Searches -->
+    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-8 max-w-2xl mx-auto mb-8">
+        <h4 class="font-bold text-lg mb-4 text-gray-800">🔥 Popular Searches:</h4>
+        <div class="flex flex-wrap gap-3 justify-center">
+            <a href="?q=engine" class="bg-white hover:bg-purple-100 text-purple-700 font-semibold px-5 py-2 rounded-full shadow transition-colors">Engine</a>
+            <a href="?q=bumper" class="bg-white hover:bg-purple-100 text-purple-700 font-semibold px-5 py-2 rounded-full shadow transition-colors">Bumper</a>
+            <a href="?q=headlight" class="bg-white hover:bg-purple-100 text-purple-700 font-semibold px-5 py-2 rounded-full shadow transition-colors">Headlight</a>
+            <a href="?q=radiator" class="bg-white hover:bg-purple-100 text-purple-700 font-semibold px-5 py-2 rounded-full shadow transition-colors">Radiator</a>
+            <a href="?q=gearbox" class="bg-white hover:bg-purple-100 text-purple-700 font-semibold px-5 py-2 rounded-full shadow transition-colors">Gearbox</a>
+            <a href="?q=door" class="bg-white hover:bg-purple-100 text-purple-700 font-semibold px-5 py-2 rounded-full shadow transition-colors">Door</a>
+        </div>
+    </div>
+    
+    <a href="{% url 'myapp:vehicle_list' %}" 
+       class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg">
+        Or Browse All Vehicles
+    </a>
+</div>
+{% endif %}
+{% endblock %}
