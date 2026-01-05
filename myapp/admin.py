@@ -115,6 +115,60 @@ class PartWithStockInline(admin.TabularInline):
                     });
                 }
                 
+                function increaseAllStock(vehicleId) {
+                    const button = event.target;
+                    const loader = document.getElementById('bulk-loader');
+                    
+                    button.disabled = true;
+                    loader.style.display = 'inline';
+                    
+                    fetch('/admin/myapp/vehiclemodel/stock/increase-all/' + vehicleId + '/', {
+                        method: 'GET',
+                        headers: {'X-Requested-With': 'XMLHttpRequest'}
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Update all stock displays
+                            data.updates.forEach(update => {
+                                const display = document.getElementById('stock-display-' + update.stock_id);
+                                if (display) {
+                                    const quantityEl = display.querySelector('.stock-quantity');
+                                    const statusEl = display.querySelector('.stock-status');
+                                    
+                                    quantityEl.textContent = update.quantity;
+                                    quantityEl.style.color = update.color;
+                                    statusEl.textContent = update.status;
+                                    
+                                    quantityEl.style.transition = 'background-color 0.3s';
+                                    quantityEl.style.backgroundColor = '#90EE90';
+                                    setTimeout(() => {
+                                        quantityEl.style.backgroundColor = 'transparent';
+                                    }, 500);
+                                    
+                                    // Enable decrease buttons
+                                    const decreaseBtn = document.getElementById('decrease-' + update.stock_id);
+                                    if (decreaseBtn) {
+                                        decreaseBtn.disabled = false;
+                                    }
+                                }
+                            });
+                            
+                            showMessage('✓ All parts increased by 1', 'success');
+                        } else {
+                            showMessage('✗ ' + data.message, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        showMessage('✗ Error updating stock', 'error');
+                        console.error('Error:', error);
+                    })
+                    .finally(() => {
+                        loader.style.display = 'none';
+                        button.disabled = false;
+                    });
+                }
+                
                 function showMessage(text, type) {
                     const existing = document.getElementById('stock-message');
                     if (existing) existing.remove();
@@ -228,6 +282,12 @@ class VehicleModelAdmin(admin.ModelAdmin):
     search_fields = ('name', 'manufacturer')
     inlines = [PartWithStockInline]
     
+    class Media:
+        css = {
+            'all': []
+        }
+        js = []
+    
     def total_parts_count(self, obj):
         """Show how many parts this vehicle has"""
         count = obj.parts.count()
@@ -238,12 +298,73 @@ class VehicleModelAdmin(admin.ModelAdmin):
     
     total_parts_count.short_description = "Parts"
     
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        """Add bulk increase button to change view"""
+        extra_context = extra_context or {}
+        
+        # Add custom button HTML
+        bulk_button = format_html('''
+            <style>
+                .bulk-stock-btn {{
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    padding: 12px 24px;
+                    border: none;
+                    border-radius: 6px;
+                    font-weight: bold;
+                    font-size: 14px;
+                    cursor: pointer;
+                    margin: 10px 0 15px 0;
+                    display: inline-block;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                }}
+                .bulk-stock-btn:hover {{
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+                }}
+                .bulk-stock-btn:active {{
+                    transform: translateY(0);
+                }}
+                .bulk-stock-container {{
+                    background: #f8f9fa;
+                    padding: 15px;
+                    border-radius: 8px;
+                    margin: 15px 0;
+                    border-left: 4px solid #667eea;
+                }}
+            </style>
+            <div class="bulk-stock-container">
+                <button type="button" 
+                    class="bulk-stock-btn"
+                    onclick="increaseAllStock({})">
+                    ⬆️ Add +1 to All Parts Stock
+                </button>
+                <span id="bulk-loader" style="display:none; margin-left: 10px; font-size: 20px;">⏳</span>
+                <p style="margin: 10px 0 0 0; color: #666; font-size: 12px;">
+                    Click to increase stock quantity by 1 for all parts at once
+                </p>
+            </div>
+        ''', object_id)
+        
+        extra_context['bulk_stock_button'] = bulk_button
+        
+        return super().change_view(request, object_id, form_url, extra_context)
+    
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        """Inject the bulk button before the inline"""
+        if change and 'bulk_stock_button' in context:
+            # The button will be available in the template context
+            pass
+        return super().render_change_form(request, context, add, change, form_url, obj)
+    
     # Stock adjustment URLs (AJAX endpoints)
     def get_urls(self):
         urls = super().get_urls()
         custom = [
             path('stock/increase/<int:stock_id>/', self.admin_site.admin_view(self.increase_stock)),
             path('stock/decrease/<int:stock_id>/', self.admin_site.admin_view(self.decrease_stock)),
+            path('stock/increase-all/<int:vehicle_id>/', self.admin_site.admin_view(self.increase_all_stock)),
         ]
         return custom + urls
     
@@ -301,6 +422,44 @@ class VehicleModelAdmin(admin.ModelAdmin):
                 'success': False,
                 'message': 'Stock is already 0'
             })
+    
+    def increase_all_stock(self, request, vehicle_id):
+        """Increase stock for all parts of this vehicle by 1"""
+        vehicle = get_object_or_404(VehicleModel, pk=vehicle_id)
+        parts = vehicle.parts.all()
+        
+        updates = []
+        for part in parts:
+            try:
+                stock = part.stock
+                stock.quantity += 1
+                stock.save()
+                
+                # Determine status
+                if stock.quantity == 0:
+                    status = 'OUT OF STOCK'
+                    color = '#dc3545'
+                elif stock.is_low_stock:
+                    status = 'LOW STOCK'
+                    color = '#ffc107'
+                else:
+                    status = 'IN STOCK'
+                    color = '#28a745'
+                
+                updates.append({
+                    'stock_id': stock.pk,
+                    'quantity': stock.quantity,
+                    'status': status,
+                    'color': color
+                })
+            except PartStock.DoesNotExist:
+                continue
+        
+        return JsonResponse({
+            'success': True,
+            'message': f'Updated {len(updates)} parts',
+            'updates': updates
+        })
 
 
 # ----------------------------- 
