@@ -115,8 +115,21 @@ class PartWithStockInline(admin.TabularInline):
                     });
                 }
                 
-                function increaseAllStock(vehicleId) {
-                    const button = event.target;
+                function increaseAllStock() {
+                    const vehicleId = document.querySelector('[name="_continue"]').value.match(/\\d+/)?.[0];
+                    if (!vehicleId) {
+                        const pathParts = window.location.pathname.split('/');
+                        const id = pathParts[pathParts.length - 3];
+                        if (id && !isNaN(id)) {
+                            processIncreaseAll(id);
+                        }
+                    } else {
+                        processIncreaseAll(vehicleId);
+                    }
+                }
+                
+                function processIncreaseAll(vehicleId) {
+                    const button = document.getElementById('bulk-add-btn');
                     const loader = document.getElementById('bulk-loader');
                     
                     button.disabled = true;
@@ -154,7 +167,7 @@ class PartWithStockInline(admin.TabularInline):
                                 }
                             });
                             
-                            showMessage('✓ All parts increased by 1', 'success');
+                            showMessage('✓ All ' + data.updates.length + ' parts increased', 'success');
                         } else {
                             showMessage('✗ ' + data.message, 'error');
                         }
@@ -201,6 +214,64 @@ class PartWithStockInline(admin.TabularInline):
                     document.body.appendChild(msg);
                     setTimeout(() => msg.remove(), 2000);
                 }
+                
+                // Add bulk button when page loads
+                document.addEventListener('DOMContentLoaded', function() {
+                    const partsInline = document.querySelector('.inline-group');
+                    if (partsInline && !document.getElementById('bulk-stock-container')) {
+                        const bulkContainer = document.createElement('div');
+                        bulkContainer.id = 'bulk-stock-container';
+                        bulkContainer.innerHTML = `
+                            <style>
+                                #bulk-stock-container {
+                                    background: linear-gradient(135deg, #ff9800 0%, #ff6f00 100%);
+                                    padding: 20px;
+                                    border-radius: 8px;
+                                    margin: 20px 0;
+                                    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+                                    text-align: center;
+                                }
+                                #bulk-add-btn {
+                                    background: white;
+                                    color: #ff6f00;
+                                    padding: 12px 30px;
+                                    border: none;
+                                    border-radius: 6px;
+                                    font-weight: bold;
+                                    font-size: 16px;
+                                    cursor: pointer;
+                                    transition: all 0.3s ease;
+                                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                                }
+                                #bulk-add-btn:hover {
+                                    transform: translateY(-2px);
+                                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                                }
+                                #bulk-add-btn:active {
+                                    transform: translateY(0);
+                                }
+                                #bulk-add-btn:disabled {
+                                    opacity: 0.6;
+                                    cursor: not-allowed;
+                                }
+                                .bulk-description {
+                                    color: white;
+                                    margin-top: 10px;
+                                    font-size: 13px;
+                                    opacity: 0.9;
+                                }
+                            </style>
+                            <button type="button" id="bulk-add-btn" onclick="increaseAllStock()">
+                                📦 Add +1 to ALL Parts Stock
+                            </button>
+                            <span id="bulk-loader" style="display:none; margin-left: 10px; font-size: 20px;">⏳</span>
+                            <div class="bulk-description">
+                                Increase stock quantity by 1 for all parts at once
+                            </div>
+                        `;
+                        partsInline.parentNode.insertBefore(bulkContainer, partsInline);
+                    }
+                });
                 </script>
                 '''
             
@@ -282,12 +353,6 @@ class VehicleModelAdmin(admin.ModelAdmin):
     search_fields = ('name', 'manufacturer')
     inlines = [PartWithStockInline]
     
-    class Media:
-        css = {
-            'all': []
-        }
-        js = []
-    
     def total_parts_count(self, obj):
         """Show how many parts this vehicle has"""
         count = obj.parts.count()
@@ -297,66 +362,6 @@ class VehicleModelAdmin(admin.ModelAdmin):
         )
     
     total_parts_count.short_description = "Parts"
-    
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        """Add bulk increase button to change view"""
-        extra_context = extra_context or {}
-        
-        # Add custom button HTML
-        bulk_button = format_html('''
-            <style>
-                .bulk-stock-btn {{
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
-                    padding: 12px 24px;
-                    border: none;
-                    border-radius: 6px;
-                    font-weight: bold;
-                    font-size: 14px;
-                    cursor: pointer;
-                    margin: 10px 0 15px 0;
-                    display: inline-block;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-                }}
-                .bulk-stock-btn:hover {{
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-                }}
-                .bulk-stock-btn:active {{
-                    transform: translateY(0);
-                }}
-                .bulk-stock-container {{
-                    background: #f8f9fa;
-                    padding: 15px;
-                    border-radius: 8px;
-                    margin: 15px 0;
-                    border-left: 4px solid #667eea;
-                }}
-            </style>
-            <div class="bulk-stock-container">
-                <button type="button" 
-                    class="bulk-stock-btn"
-                    onclick="increaseAllStock({})">
-                    ⬆️ Add +1 to All Parts Stock
-                </button>
-                <span id="bulk-loader" style="display:none; margin-left: 10px; font-size: 20px;">⏳</span>
-                <p style="margin: 10px 0 0 0; color: #666; font-size: 12px;">
-                    Click to increase stock quantity by 1 for all parts at once
-                </p>
-            </div>
-        ''', object_id)
-        
-        extra_context['bulk_stock_button'] = bulk_button
-        
-        return super().change_view(request, object_id, form_url, extra_context)
-    
-    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
-        """Inject the bulk button before the inline"""
-        if change and 'bulk_stock_button' in context:
-            # The button will be available in the template context
-            pass
-        return super().render_change_form(request, context, add, change, form_url, obj)
     
     # Stock adjustment URLs (AJAX endpoints)
     def get_urls(self):
