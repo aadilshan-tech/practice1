@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-your-secret-key-change-this-in-production-a1b2c3d4e5f6'
 
 # Disable debug in production
-DEBUG = False
+DEBUG = True
 
 # Allow all hosts (temporary for testing)
 ALLOWED_HOSTS = ['*']

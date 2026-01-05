@@ -4,35 +4,35 @@
 {% block title %}Scrap Auto Parts - Quality Used Car & Bike Parts{% endblock %}
 
 {% block content %}
-<!-- Hero Section with Gradient -->
-<div class="hero-section bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 text-white rounded-2xl shadow-2xl p-8 md:p-16 mb-12 relative overflow-hidden">
+<!-- Hero Section - Mobile Optimized -->
+<div class="hero-section bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 text-white rounded-xl md:rounded-2xl shadow-2xl p-4 md:p-8 lg:p-16 mb-6 md:mb-12 relative overflow-hidden">
     <!-- Animated background elements -->
-    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+    <div class="absolute top-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+    <div class="absolute bottom-0 left-0 w-48 md:w-96 h-48 md:h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
     
     <div class="relative z-10 max-w-4xl mx-auto text-center">
-        <div class="mb-6">
-            <span class="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                🏆 India's Trusted Auto Parts Marketplace
+        <div class="mb-3 md:mb-6">
+            <span class="inline-block bg-white/20 backdrop-blur-sm px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-semibold">
+                🏆 India's Trusted Auto Parts
             </span>
         </div>
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+        <h1 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-6 leading-tight">
             Got a Vehicle Part Need?<br>
             <span class="text-yellow-300">We've Got You Covered!</span>
         </h1>
-        <p class="text-xl md:text-2xl mb-8 opacity-95">
-            Quality used car & bike spare parts from scrapped vehicles.<br>
+        <p class="text-sm sm:text-base md:text-xl lg:text-2xl mb-4 md:mb-8 opacity-95 px-2">
+            Quality used car & bike spare parts from scrapped vehicles.<br class="hidden sm:block">
             Browse 41+ vehicle models with genuine tested parts.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{% url 'myapp:vehicle_list' %}" class="inline-flex items-center justify-center gap-3 bg-white text-blue-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-xl shadow-lg transition-all transform hover:scale-105 hover:shadow-2xl">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-2">
+            <a href="{% url 'myapp:vehicle_list' %}" class="inline-flex items-center justify-center gap-2 md:gap-3 bg-white text-blue-600 hover:bg-gray-100 active:bg-gray-200 font-bold py-3 md:py-4 px-6 md:px-8 rounded-lg md:rounded-xl shadow-lg transition-all text-sm md:text-base">
+                <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
                 </svg>
                 Browse All Parts
             </a>
-            <a href="https://wa.me/919895687959" target="_blank" class="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-all transform hover:scale-105 hover:shadow-2xl">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <a href="https://wa.me/919895687959" target="_blank" class="inline-flex items-center justify-center gap-2 md:gap-3 bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-bold py-3 md:py-4 px-6 md:px-8 rounded-lg md:rounded-xl shadow-lg transition-all text-sm md:text-base">
+                <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                 </svg>
                 WhatsApp Us
@@ -41,242 +41,236 @@
     </div>
 </div>
 
-<!-- Stats Counter Section with Professional Icons -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+<!-- Stats Counter - Mobile Optimized -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-8 md:mb-16">
     <!-- Vehicle Models -->
-    <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition-all border-t-4 border-blue-500">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
-            <svg class="w-10 h-10 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+    <div class="bg-white rounded-xl md:rounded-2xl shadow-xl p-4 md:p-8 text-center transform hover:scale-105 transition-all border-t-4 border-blue-500">
+        <div class="w-12 h-12 md:w-20 md:h-20 mx-auto mb-2 md:mb-4 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 md:w-10 md:h-10 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
             </svg>
         </div>
-        <div class="text-5xl font-bold text-blue-600 mb-2 counter" data-target="41">0</div>
-        <div class="text-gray-700 font-semibold text-lg">Vehicle Models</div>
-        <div class="text-gray-500 text-sm mt-1">Available</div>
+        <div class="text-3xl md:text-5xl font-bold text-blue-600 mb-1 md:mb-2 counter" data-target="41">0</div>
+        <div class="text-gray-700 font-semibold text-sm md:text-lg">Vehicles</div>
+        <div class="text-gray-500 text-xs md:text-sm mt-0.5 md:mt-1">Available</div>
     </div>
     
     <!-- Parts In Stock -->
-    <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition-all border-t-4 border-green-500">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center">
-            <svg class="w-10 h-10 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+    <div class="bg-white rounded-xl md:rounded-2xl shadow-xl p-4 md:p-8 text-center transform hover:scale-105 transition-all border-t-4 border-green-500">
+        <div class="w-12 h-12 md:w-20 md:h-20 mx-auto mb-2 md:mb-4 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 md:w-10 md:h-10 text-green-600" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 00-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 12 7.4l3.38 4.6L17 10.83 14.92 8H20v6z"/>
             </svg>
         </div>
-        <div class="text-5xl font-bold text-green-600 mb-2 counter" data-target="41">0</div>
-        <div class="text-gray-700 font-semibold text-lg">Parts In Stock</div>
-        <div class="text-gray-500 text-sm mt-1">Ready to Ship</div>
+        <div class="text-3xl md:text-5xl font-bold text-green-600 mb-1 md:mb-2 counter" data-target="41">0</div>
+        <div class="text-gray-700 font-semibold text-sm md:text-lg">Parts</div>
+        <div class="text-gray-500 text-xs md:text-sm mt-0.5 md:mt-1">In Stock</div>
     </div>
     
     <!-- Quality Tested -->
-    <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition-all border-t-4 border-purple-500">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center">
-            <svg class="w-10 h-10 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+    <div class="bg-white rounded-xl md:rounded-2xl shadow-xl p-4 md:p-8 text-center transform hover:scale-105 transition-all border-t-4 border-purple-500">
+        <div class="w-12 h-12 md:w-20 md:h-20 mx-auto mb-2 md:mb-4 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 md:w-10 md:h-10 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
             </svg>
         </div>
-        <div class="text-5xl font-bold text-purple-600 mb-2">100%</div>
-        <div class="text-gray-700 font-semibold text-lg">Quality Tested</div>
-        <div class="text-gray-500 text-sm mt-1">Genuine Parts</div>
+        <div class="text-3xl md:text-5xl font-bold text-purple-600 mb-1 md:mb-2">100%</div>
+        <div class="text-gray-700 font-semibold text-sm md:text-lg">Tested</div>
+        <div class="text-gray-500 text-xs md:text-sm mt-0.5 md:mt-1">Quality</div>
     </div>
     
     <!-- Quick Response -->
-    <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition-all border-t-4 border-orange-500">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full flex items-center justify-center">
-            <svg class="w-10 h-10 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13 2.03v2.02c4.39.54 7.5 4.53 6.96 8.92-.46 3.64-3.32 6.53-6.96 6.96v2.02c5.5-.55 9.5-5.43 8.95-10.93-.45-4.75-4.22-8.5-8.95-8.99zm-2 .03c-1.95.19-3.81.94-5.33 2.2L7.1 5.74c1.12-.9 2.47-1.48 3.9-1.68v-2zM4.26 5.67A9.885 9.885 0 002.05 11h2.02c.19-1.42.75-2.77 1.64-3.9L4.26 5.67zM2.06 13c.2 1.96.97 3.81 2.21 5.33l1.42-1.43A8.002 8.002 0 014.06 13H2.06zm5.04 5.37l-1.43 1.37A9.994 9.994 0 0011 21.95v-2.02c-1.39-.17-2.74-.71-3.9-1.56zm4.89 1.58v2.02c1.96-.2 3.82-.97 5.34-2.21l-1.43-1.43c-1.1.86-2.43 1.44-3.91 1.62zM13 17.9v-2.02c1.39-.17 2.74-.71 3.9-1.56l1.43 1.43a9.981 9.981 0 01-5.33 2.15zm3.5-2.5A8.001 8.001 0 0113 9.09V7.07c3.61.45 6.48 3.33 6.93 6.93h-2.02c-.38-2.39-2.16-4.16-4.55-4.55z"/>
+    <div class="bg-white rounded-xl md:rounded-2xl shadow-xl p-4 md:p-8 text-center transform hover:scale-105 transition-all border-t-4 border-orange-500">
+        <div class="w-12 h-12 md:w-20 md:h-20 mx-auto mb-2 md:mb-4 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 md:w-10 md:h-10 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M13 2.03v2.02c4.39.54 7.5 4.53 6.96 8.92-.46 3.64-3.32 6.53-6.96 6.96v2.02c5.5-.55 9.5-5.43 8.95-10.93-.45-4.75-4.22-8.5-8.95-8.99zm-2 .03c-1.95.19-3.81.94-5.33 2.2L7.1 5.74c1.12-.9 2.47-1.48 3.9-1.68v-2zM4.26 5.67A9.885 9.885 0 002.05 11h2.02c.19-1.42.75-2.77 1.64-3.9L4.26 5.67zM2.06 13c.2 1.96.97 3.81 2.21 5.33l1.42-1.43A8.002 8.002 0 014.06 13H2.06zm5.04 5.37l-1.43 1.37A9.994 9.994 0 0011 21.95v-2.02c-1.39-.17-2.74-.71-3.9-1.56zm4.89 1.58v2.02c1.96-.2 3.82-.97 5.34-2.21l-1.43-1.43c-1.1.86-2.43 1.44-3.91 1.62z"/>
             </svg>
         </div>
-        <div class="text-5xl font-bold text-orange-600 mb-2">24hrs</div>
-        <div class="text-gray-700 font-semibold text-lg">Quick Response</div>
-        <div class="text-gray-500 text-sm mt-1">Fast Support</div>
+        <div class="text-3xl md:text-5xl font-bold text-orange-600 mb-1 md:mb-2">24hrs</div>
+        <div class="text-gray-700 font-semibold text-sm md:text-lg">Response</div>
+        <div class="text-gray-500 text-xs md:text-sm mt-0.5 md:mt-1">Support</div>
     </div>
 </div>
 
-<!-- How It Works Section -->
-<div class="mb-16">
-    <div class="text-center mb-12">
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">How It Works</h2>
-        <p class="text-xl text-gray-600">Get your spare parts in 3 simple steps</p>
+<!-- How It Works - Mobile Optimized -->
+<div class="mb-8 md:mb-16">
+    <div class="text-center mb-6 md:mb-12 px-2">
+        <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-2 md:mb-4">How It Works</h2>
+        <p class="text-base md:text-xl text-gray-600">Get your spare parts in 3 simple steps</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
         <!-- Step 1 -->
         <div class="relative">
-            <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition-all">
-                <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6 shadow-lg">
+            <div class="bg-white rounded-xl md:rounded-2xl shadow-xl p-6 md:p-8 text-center transform hover:scale-105 transition-all">
+                <div class="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center text-2xl md:text-3xl font-bold mx-auto mb-4 md:mb-6 shadow-lg">
                     1
                 </div>
-                <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 md:w-8 md:h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">Browse & Search</h3>
-                <p class="text-gray-600 leading-relaxed">Select your vehicle model and browse through our extensive inventory of quality parts</p>
+                <h3 class="text-lg md:text-2xl font-bold mb-2 md:mb-4 text-gray-800">Browse & Search</h3>
+                <p class="text-sm md:text-base text-gray-600 leading-relaxed">Select your vehicle model and browse through our inventory</p>
             </div>
-            <!-- Arrow for desktop -->
-            <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-blue-300 text-4xl z-10">→</div>
         </div>
         
         <!-- Step 2 -->
         <div class="relative">
-            <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition-all">
-                <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6 shadow-lg">
+            <div class="bg-white rounded-xl md:rounded-2xl shadow-xl p-6 md:p-8 text-center transform hover:scale-105 transition-all">
+                <div class="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full flex items-center justify-center text-2xl md:text-3xl font-bold mx-auto mb-4 md:mb-6 shadow-lg">
                     2
                 </div>
-                <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-                    <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 md:w-8 md:h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">Check Details</h3>
-                <p class="text-gray-600 leading-relaxed">View part condition, stock availability, and detailed specifications</p>
+                <h3 class="text-lg md:text-2xl font-bold mb-2 md:mb-4 text-gray-800">Check Details</h3>
+                <p class="text-sm md:text-base text-gray-600 leading-relaxed">View part condition, stock availability, and specifications</p>
             </div>
-            <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-green-300 text-4xl z-10">→</div>
         </div>
         
         <!-- Step 3 -->
         <div class="relative">
-            <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition-all">
-                <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-6 shadow-lg">
+            <div class="bg-white rounded-xl md:rounded-2xl shadow-xl p-6 md:p-8 text-center transform hover:scale-105 transition-all">
+                <div class="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-full flex items-center justify-center text-2xl md:text-3xl font-bold mx-auto mb-4 md:mb-6 shadow-lg">
                     3
                 </div>
-                <div class="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                    <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 md:w-8 md:h-8 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">Enquire on WhatsApp</h3>
-                <p class="text-gray-600 leading-relaxed">Contact us directly for pricing, availability and delivery details</p>
+                <h3 class="text-lg md:text-2xl font-bold mb-2 md:mb-4 text-gray-800">Enquire on WhatsApp</h3>
+                <p class="text-sm md:text-base text-gray-600 leading-relaxed">Contact us for pricing and delivery details</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Features Section -->
-<div class="mb-16">
-    <div class="text-center mb-12">
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Why Choose Us?</h2>
-        <p class="text-xl text-gray-600">Your trusted partner for quality spare parts</p>
+<!-- Features - Mobile Optimized -->
+<div class="mb-8 md:mb-16">
+    <div class="text-center mb-6 md:mb-12 px-2">
+        <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-2 md:mb-4">Why Choose Us?</h2>
+        <p class="text-base md:text-xl text-gray-600">Your trusted partner for quality spare parts</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all transform hover:-translate-y-2">
-            <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-4">
-                <svg class="w-7 h-7 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 hover:shadow-2xl transition-all transform hover:-translate-y-2">
+            <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-3 md:mb-4">
+                <svg class="w-6 h-6 md:w-7 md:h-7 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
                 </svg>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-gray-800">Genuine Parts</h3>
-            <p class="text-gray-600">All parts sourced from authentic scrapped vehicles and thoroughly tested</p>
+            <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3 text-gray-800">Genuine Parts</h3>
+            <p class="text-sm md:text-base text-gray-600">All parts sourced from authentic vehicles and tested</p>
         </div>
         
-        <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all transform hover:-translate-y-2">
-            <div class="w-14 h-14 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mb-4">
-                <svg class="w-7 h-7 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 hover:shadow-2xl transition-all transform hover:-translate-y-2">
+            <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mb-3 md:mb-4">
+                <svg class="w-6 h-6 md:w-7 md:h-7 text-green-600" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
                 </svg>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-gray-800">Best Prices</h3>
-            <p class="text-gray-600">Get quality parts at competitive prices - up to 70% less than new parts</p>
+            <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3 text-gray-800">Best Prices</h3>
+            <p class="text-sm md:text-base text-gray-600">Up to 70% less than new parts</p>
         </div>
         
-        <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all transform hover:-translate-y-2">
-            <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-4">
-                <svg class="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 hover:shadow-2xl transition-all transform hover:-translate-y-2">
+            <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-3 md:mb-4">
+                <svg class="w-6 h-6 md:w-7 md:h-7 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/>
                 </svg>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-gray-800">Large Inventory</h3>
-            <p class="text-gray-600">Extensive collection covering 41+ vehicle models - cars and bikes</p>
+            <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3 text-gray-800">Large Inventory</h3>
+            <p class="text-sm md:text-base text-gray-600">41+ vehicle models covered</p>
         </div>
         
-        <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all transform hover:-translate-y-2">
-            <div class="w-14 h-14 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center mb-4">
-                <svg class="w-7 h-7 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white rounded-xl md:rounded-2xl shadow-lg p-4 md:p-6 hover:shadow-2xl transition-all transform hover:-translate-y-2">
+            <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center mb-3 md:mb-4">
+                <svg class="w-6 h-6 md:w-7 md:h-7 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M13 2.03v2.02c4.39.54 7.5 4.53 6.96 8.92-.46 3.64-3.32 6.53-6.96 6.96v2.02c5.5-.55 9.5-5.43 8.95-10.93-.45-4.75-4.22-8.5-8.95-8.99zm-2 .03c-1.95.19-3.81.94-5.33 2.2L7.1 5.74c1.12-.9 2.47-1.48 3.9-1.68v-2zM4.26 5.67A9.885 9.885 0 002.05 11h2.02c.19-1.42.75-2.77 1.64-3.9L4.26 5.67zM2.06 13c.2 1.96.97 3.81 2.21 5.33l1.42-1.43A8.002 8.002 0 014.06 13H2.06zm5.04 5.37l-1.43 1.37A9.994 9.994 0 0011 21.95v-2.02c-1.39-.17-2.74-.71-3.9-1.56zm4.89 1.58v2.02c1.96-.2 3.82-.97 5.34-2.21l-1.43-1.43c-1.1.86-2.43 1.44-3.91 1.62z"/>
                 </svg>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-gray-800">Quick Response</h3>
-            <p class="text-gray-600">Fast enquiry response via WhatsApp - get answers within 24 hours</p>
+            <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3 text-gray-800">Quick Response</h3>
+            <p class="text-sm md:text-base text-gray-600">Fast support within 24 hours</p>
         </div>
     </div>
 </div>
 
-<!-- CTA Section -->
-<div class="bg-gradient-to-r from-green-500 via-green-600 to-green-700 rounded-2xl shadow-2xl p-12 text-center text-white mb-16 relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-64 h-64 bg-white rounded-full mix-blend-overlay opacity-10"></div>
-    <div class="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full mix-blend-overlay opacity-10"></div>
-    
+<!-- CTA - Mobile Optimized -->
+<div class="bg-gradient-to-r from-green-500 via-green-600 to-green-700 rounded-xl md:rounded-2xl shadow-2xl p-6 md:p-12 text-center text-white mb-8 md:mb-16 relative overflow-hidden">
     <div class="relative z-10">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Find Your Part?</h2>
-        <p class="text-xl mb-8 opacity-95">Browse our extensive inventory or contact us on WhatsApp</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{% url 'myapp:vehicle_list' %}" class="inline-flex items-center justify-center gap-2 bg-white text-green-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-xl shadow-lg transition-all transform hover:scale-105">
-                Browse All Parts →
+        <h2 class="text-xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">Ready to Find Your Part?</h2>
+        <p class="text-sm md:text-xl mb-4 md:mb-8 opacity-95">Browse our inventory or contact us</p>
+        <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
+            <a href="{% url 'myapp:vehicle_list' %}" class="inline-flex items-center justify-center gap-2 bg-white text-green-600 hover:bg-gray-100 font-bold py-3 px-6 md:px-8 rounded-lg md:rounded-xl shadow-lg transition-all text-sm md:text-base">
+                Browse Parts →
             </a>
-            <a href="https://wa.me/919895687959" target="_blank" class="inline-flex items-center justify-center gap-2 bg-green-400 hover:bg-green-300 text-green-900 font-bold py-4 px-8 rounded-xl shadow-lg transition-all transform hover:scale-105">
-                WhatsApp Us Now
+            <a href="https://wa.me/919895687959" target="_blank" class="inline-flex items-center justify-center gap-2 bg-green-400 hover:bg-green-300 text-green-900 font-bold py-3 px-6 md:px-8 rounded-lg md:rounded-xl shadow-lg transition-all text-sm md:text-base">
+                WhatsApp Us
             </a>
         </div>
     </div>
 </div>
 
-<!-- Location Section -->
-<div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-    <div class="text-center mb-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Visit Our Location</h2>
-        <p class="text-xl text-gray-600">REHASH Auto Parts - Serving Iritty and surrounding areas</p>
+<!-- Location - Mobile Optimized -->
+<div class="bg-white rounded-xl md:rounded-2xl shadow-xl p-4 md:p-8 lg:p-12">
+    <div class="text-center mb-6 md:mb-8">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-2 md:mb-4">Visit Our Location</h2>
+        <p class="text-base md:text-xl text-gray-600 px-2">REHASH Auto Parts - Serving Iritty</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div class="space-y-6">
-            <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
-                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div class="space-y-4 md:space-y-6">
+            <div class="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 rounded-xl">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 md:w-6 md:h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-bold text-lg mb-2">Address</h3>
-                    <p class="text-gray-600">REHASH Mailadanpara, Iritty<br>Kannur District, Kerala</p>
+                    <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Address</h3>
+                    <p class="text-sm md:text-base text-gray-600">REHASH Mailadanpara, Iritty<br>Kannur District, Kerala</p>
                 </div>
             </div>
             
-            <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
-                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 rounded-xl">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 md:w-6 md:h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-bold text-lg mb-2">Phone</h3>
-                    <a href="tel:+919895687959" class="text-blue-600 hover:text-blue-700 font-semibold text-lg">+91 98956 87959</a>
+                    <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Phone</h3>
+                    <a href="tel:+919895687959" class="text-blue-600 hover:text-blue-700 font-semibold text-base md:text-lg">+91 98956 87959</a>
                 </div>
             </div>
             
-            <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
-                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 rounded-xl">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 md:w-6 md:h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-bold text-lg mb-2">Working Hours</h3>
-                    <p class="text-gray-600">Monday - Saturday: 9:00 AM - 6:00 PM<br>Sunday: Closed</p>
+                    <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Working Hours</h3>
+                    <p class="text-sm md:text-base text-gray-600">Mon-Sat: 9:00 AM - 6:00 PM<br>Sunday: Closed</p>
                 </div>
             </div>
         </div>
         
-        <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-8 text-center text-white shadow-xl">
-            <div class="w-24 h-24 mx-auto mb-6 bg-white/20 rounded-full flex items-center justify-center">
-                <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+        <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl md:rounded-2xl p-6 md:p-8 text-center text-white shadow-xl">
+            <div class="w-16 h-16 md:w-24 md:h-24 mx-auto mb-4 md:mb-6 bg-white/20 rounded-full flex items-center justify-center">
+                <svg class="w-8 h-8 md:w-12 md:h-12" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                 </svg>
             </div>
-            <h3 class="text-3xl font-bold mb-4">Find Us</h3>
-            <p class="text-lg mb-6 opacity-95">Located in the heart of Iritty, easily accessible from all major roads</p>
-            <a href="https://wa.me/919895687959?text=Hi!%20I%20need%20directions%20to%20your%20location" target="_blank" class="inline-block bg-white text-blue-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg">
+            <h3 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Find Us</h3>
+            <p class="text-sm md:text-lg mb-4 md:mb-6 opacity-95">Located in Iritty, easily accessible</p>
+            <a href="https://wa.me/919895687959?text=Hi!%20I%20need%20directions" target="_blank" class="inline-block bg-white text-blue-600 hover:bg-gray-100 font-bold py-2.5 md:py-3 px-6 md:px-8 rounded-lg md:rounded-xl transition-all transform hover:scale-105 shadow-lg text-sm md:text-base">
                 Get Directions
             </a>
         </div>
@@ -286,10 +280,8 @@
 
 {% block extra_js %}
 <script>
-// Counter animation
 document.addEventListener('DOMContentLoaded', function() {
     const counters = document.querySelectorAll('.counter');
-    
     counters.forEach(counter => {
         const target = +counter.getAttribute('data-target');
         const duration = 2000;
@@ -306,7 +298,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
         
-        // Start animation when element is in viewport
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -327,13 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
     33% { transform: translate(30px, -50px) scale(1.1); }
     66% { transform: translate(-20px, 20px) scale(0.9); }
 }
-
-.animate-blob {
-    animation: blob 7s infinite;
-}
-
-.animation-delay-2000 {
-    animation-delay: 2s;
-}
+.animate-blob { animation: blob 7s infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
 </style>
 {% endblock %}
