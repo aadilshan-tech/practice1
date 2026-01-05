@@ -5,9 +5,9 @@ class Command(BaseCommand):
     help = "Create default superuser"
 
     def handle(self, *args, **kwargs):
-        username = "admin"
-        email = "admin@example.com"
-        password = "Admin@123"
+        username = "aadilshan"
+        email = "aadilshan5065@gmail.com"
+        password = "Rasheed@5065"
 
         if not User.objects.filter(username=username).exists():
             User.objects.create_superuser(
